@@ -1,2 +1,5 @@
-# Quantitative-Finance-Projects
-Hey I'm a student currently with a passion of finance and programming. In my journey I will create new interesting projects doing my best to learn new things so that I can expand my skills. I will post my journey projects here so maybe you can give suggestions on improvement or somehow the code helps you if you are a beginner like me. Thank You
+Hey welcome
+Before starting i would like to state why i wrote this code. Basically, I got the motivation when I was watching 'Financial Markets' course on coursera I noticed a lack of open-source projects applying this specific academic framework to cryptocurrency markets.
+How to Run : Install dependencies:  pip install pandas matplotlib scipy requests
+Conclusion: The result shows that eth and btc are correlated as the line is straight so it is also a kind of 'proof'
+The beta is 0.46 which shows btc is a safer investment than etherium but etherium can give more returns than btc (with more depression)
