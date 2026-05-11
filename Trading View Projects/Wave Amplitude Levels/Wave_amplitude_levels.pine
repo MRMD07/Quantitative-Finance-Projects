@@ -1,0 +1,58 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © MRMD
+
+//@version=6
+plot(close)
+
+indicator("Wave Amplitude Levels", overlay=true)
+
+// --- Inputs ---
+lookback = input.int(30, title="Average Amplitude Lookback (Days)", minval=1)
+
+
+daily_amp = (high - low) / 2
+
+// Fetch the Previous Close and Average Amplitude using the non-repainting method
+[prev_close, avg_amp] = request.security(syminfo.tickerid, "D", [close[1], ta.sma(daily_amp, lookback)[1]], lookahead=barmerge.lookahead_on)
+
+// Calculate the Natural Levels
+level_plus_2  = prev_close + (2 * avg_amp)
+level_plus_1  = prev_close + avg_amp
+mean_level    = prev_close
+level_minus_1 = prev_close - avg_amp
+level_minus_2 = prev_close - (2 * avg_amp)
+
+// Plotting the Levels 
+plot(level_plus_2,  title="+2 Amplitude", color=color.new(color.red, 40),   style=plot.style_stepline, linewidth=2)
+plot(level_plus_1,  title="+1 Amplitude", color=color.new(color.orange, 40),style=plot.style_stepline, linewidth=1)
+plot(mean_level,    title="Mean (Prev Close)", color=color.new(color.white, 30), style=plot.style_stepline, linewidth=2)
+plot(level_minus_1, title="-1 Amplitude", color=color.new(color.blue, 40),  style=plot.style_stepline, linewidth=1)
+plot(level_minus_2, title="-2 Amplitude", color=color.new(color.green, 40), style=plot.style_stepline, linewidth=2)
+
+
+var table levelsTable = table.new(position.top_right, 2, 6, bgcolor=color.new(color.black, 70), border_width=1, border_color=color.gray)
+
+if barstate.islast
+    
+    table.cell(levelsTable, 0, 0, "Wave Level", text_color=color.white, text_halign=text.align_left)
+    table.cell(levelsTable, 1, 0, "Price",      text_color=color.white, text_halign=text.align_right)
+
+    
+    table.cell(levelsTable, 0, 1, "+2 Amplitude", text_color=color.red, text_halign=text.align_left)
+    table.cell(levelsTable, 1, 1, str.tostring(level_plus_2, format.mintick), text_color=color.red, text_halign=text.align_right)
+
+    
+    table.cell(levelsTable, 0, 2, "+1 Amplitude", text_color=color.orange, text_halign=text.align_left)
+    table.cell(levelsTable, 1, 2, str.tostring(level_plus_1, format.mintick), text_color=color.orange, text_halign=text.align_right)
+
+    // Mean
+    table.cell(levelsTable, 0, 3, "Mean (Yest. Close)", text_color=color.white, text_halign=text.align_left)
+    table.cell(levelsTable, 1, 3, str.tostring(mean_level, format.mintick), text_color=color.white, text_halign=text.align_right)
+
+   
+    table.cell(levelsTable, 0, 4, "-1 Amplitude", text_color=color.blue, text_halign=text.align_left)
+    table.cell(levelsTable, 1, 4, str.tostring(level_minus_1, format.mintick), text_color=color.blue, text_halign=text.align_right)
+
+   
+    table.cell(levelsTable, 0, 5, "-2 Amplitude", text_color=color.green, text_halign=text.align_left)
+    table.cell(levelsTable, 1, 5, str.tostring(level_minus_2, format.mintick), text_color=color.green, text_halign=text.align_right)
