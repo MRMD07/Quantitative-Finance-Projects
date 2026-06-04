@@ -20,3 +20,8 @@ change =(( price[1:]-price[:-1])/price[:-1])*100
 start_window = pd.to_datetime('2026-04-06')
 end_window = pd.to_datetime('2026-04-17')
 window =( data['Date']>= start_window)&( data['Date']<= end_window)
+
+change = np.insert(change, 0, 0)
+data['Changes']= change
+
+window_returns = data.loc[window, 'Changes']
