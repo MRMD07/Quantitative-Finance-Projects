@@ -1,3 +1,6 @@
+## 🌟 Featured Deep Dives
+* **[KSE-100 Geopolitical Event Study](https://github.com/yourusername/kse100-geopolitical-event-study)**: An empirical Python data pipeline analyzing institutional risk premium ingestion and mean reversion mechanics during macro diplomatic shocks.
+
 Hey welcome
 Before starting i would like to state why i wrote this code. Basically, I got the motivation when I was watching 'Financial Markets' course on coursera I noticed a lack of open-source projects applying this specific academic framework to cryptocurrency markets.
 How to Run : Install dependencies:  pip install pandas matplotlib scipy requests
